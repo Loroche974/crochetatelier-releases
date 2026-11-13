@@ -56,3 +56,12 @@ L'appli n'est pas sur le Play Store. Elle se **met à jour toute seule** : quand
 ## Tes données
 
 Tout reste sur ton téléphone : aucun compte, aucun serveur, aucune publicité. La seule connexion à Internet sert à vérifier s'il existe une nouvelle version. Une sauvegarde de tes notes, annotations et favoris s'exporte en un fichier `.zip` (*Réglages › Sauvegarde*).
+
+---
+
+<p align="center">
+© 2026 Loroche974 · Tous droits réservés.<br>
+Appli créée pour <b>Co'Condemailles</b> 🧶
+</p>
+
+<p align="center"><sub>L'appli est gratuite, mais ni son code ni ses visuels ne peuvent être repris ou revendus sans autorisation.</sub></p>
