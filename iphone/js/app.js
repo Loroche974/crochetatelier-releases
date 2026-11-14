@@ -2,9 +2,9 @@
 import * as db from './db.js';
 import { applyTheme, onSystemThemeChange } from './theme.js';
 import { endExpiredSeason, choosePalette, DEFAULT_PALETTE } from './logic/season.js';
-import { h, icon, releaseUrls, toast } from './ui.js';
+import { h, icon, releaseUrls, toast, sheet } from './ui.js';
 
-export const APP_VERSION = '1.1';
+export const APP_VERSION = '1.2';
 
 // ---------- Settings ----------
 let current = { themeMode: 'SYSTEM', palette: DEFAULT_PALETTE };
@@ -99,6 +99,20 @@ export async function checkForUpdate() {
   return reg.waiting || reg.installing ? 'Nouvelle version trouvée : touche le bandeau en haut pour l\'installer.' : 'Tu as la dernière version.';
 }
 
+// ---------- « Quoi de neuf » after an update ----------
+async function showNews() {
+  const [{ NEWS, shouldShowNews }, { newcomer }] = await Promise.all([import('./logic/news.js'), import('./repo.js')]);
+  const seen = await db.setting('newsSeen', null);
+  const show = shouldShowNews(seen, APP_VERSION, await newcomer());
+  await db.setSetting('newsSeen', APP_VERSION); // once only, as on Android
+  if (show) {
+    sheet(`Quoi de neuf dans la ${APP_VERSION} ?`, (close) => [
+      h('p', { style: { whiteSpace: 'pre-line', lineHeight: '1.5' } }, NEWS),
+      h('div', { class: 'row end' }, h('button', { class: 'btn filled', onclick: () => close() }, 'Super !')),
+    ]);
+  }
+}
+
 // ---------- Start ----------
 async function start() {
   const saved = await db.setting('app', current);
@@ -114,6 +128,7 @@ async function start() {
   await render();
   db.persist();
   watchUpdates();
+  showNews();
   // PDFs imported before this version, or whose analysis was interrupted.
   setTimeout(() => import('./indexer.js').then((m) => m.indexPending()), 2000);
 }

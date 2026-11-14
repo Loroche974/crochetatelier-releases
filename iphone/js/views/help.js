@@ -47,7 +47,7 @@ function help() {
     block('Couleurs',
       'Réglages › Palette : Laine pastel, Terracotta, Sauge, Lavande, Coton. Thèmes de saison proposés sur l\'Accueil : Saint-Valentin (7 – 15 février), Pâques (la semaine avant Pâques), Halloween (20 octobre – 2 novembre) et Noël (1er décembre – 6 janvier) ; l\'appli reprend ensuite toute seule tes couleurs habituelles.'),
     block('Mises à jour',
-      'Quand une nouvelle version est publiée, l\'appli la télécharge toute seule (avec Internet) et affiche « Nouvelle version, toucher pour recharger ». Tes données sont gardées.'),
+      'Quand une nouvelle version est publiée, l\'appli la télécharge toute seule (avec Internet) et affiche « Nouvelle version, toucher pour recharger ». Tes données sont gardées. Une fenêtre « Quoi de neuf » résume ensuite les nouveautés, une seule fois.'),
     block('Confidentialité',
       'Tout reste sur ton appareil : aucun compte, aucune publicité, rien n\'est envoyé.'),
   ];

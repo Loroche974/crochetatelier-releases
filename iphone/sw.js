@@ -1,12 +1,12 @@
 // Offline: the whole app is cached at install. Change VERSION on every publication,
 // otherwise phones keep the old files.
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = `carnet-crochet-${VERSION}`;
 const FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png',
   'js/app.js', 'js/db.js', 'js/repo.js', 'js/theme.js', 'js/ui.js', 'js/snow.js', 'js/pdf.js', 'js/indexer.js',
-  'js/logic/backup.js', 'js/logic/ink.js', 'js/logic/files.js', 'js/logic/markdown.js', 'js/logic/search.js', 'js/logic/season.js', 'js/logic/workshop.js',
+  'js/logic/backup.js', 'js/logic/ink.js', 'js/logic/news.js', 'js/logic/files.js', 'js/logic/markdown.js', 'js/logic/search.js', 'js/logic/season.js', 'js/logic/workshop.js',
   'js/views/home.js', 'js/views/library.js', 'js/views/search.js', 'js/views/reader.js', 'js/views/sheet.js',
   'js/views/workshop.js', 'js/views/project.js', 'js/views/yarn.js', 'js/views/settings.js', 'js/views/help.js',
   'lib/pdf.min.mjs', 'lib/pdf.worker.min.mjs', 'lib/fflate.js',
