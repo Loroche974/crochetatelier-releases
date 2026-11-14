@@ -69,7 +69,7 @@ Sur iPhone et iPad, l'appli s'installe depuis **Safari**, sans passer par l'App 
 2. Touche le bouton **Partager** (le carré avec une flèche), puis **Sur l'écran d'accueil** › **Ajouter**.
 3. Ouvre l'appli depuis sa nouvelle icône : elle s'affiche en plein écran et **marche sans Internet**.
 
-Tu y retrouves les mêmes fonctions que sur Android : bibliothèque, recherche dans le texte des PDF, annotations, compteur de rangs, règle de lecture, mains libres, atelier, thème de Noël. Les tutos s'ajoutent depuis l'app **Fichiers** ou **iCloud Drive**.
+Tu y retrouves les mêmes fonctions que sur Android : bibliothèque, recherche dans le texte des PDF, annotations, compteur de rangs, règle de lecture, mains libres, atelier, thèmes de saison (Saint-Valentin, Pâques, Halloween, Noël). Les tutos s'ajoutent depuis l'app **Fichiers** ou **iCloud Drive**.
 
 Quelques différences, à cause de l'iPhone :
 - pas de connexion au PC ni de boutons de volume pour compter ;

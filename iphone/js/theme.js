@@ -23,6 +23,18 @@ const C = {
     dark: ['#D9C4AE', '#3B2F22', '#534536', '#F6E0C9', '#CFC5BA', '#362F27', '#4D453C', '#B9CBB4', '#161412', '#221F1C', '#2D2A26'],
     light: ['#6E5B47', '#FFFFFF', '#F6E0C9', '#271909', '#6A5F55', '#FFFFFF', '#F2E3D6', '#52634F', '#FCF9F5', '#F3EEE8', '#EDE8E2'],
   },
+  SAINT_VALENTIN: {
+    dark: ['#FFB1C8', '#5E1133', '#8C1D47', '#FFD9E2', '#FFB3B0', '#561D1D', '#733334', '#FFB4AB', '#1F1014', '#2C1A20', '#37242A'],
+    light: ['#C2185B', '#FFFFFF', '#FFD9E2', '#3F0019', '#8E4A5A', '#FFFFFF', '#FFD9DE', '#B3261E', '#FFF5F7', '#FBE7EC', '#F6DDE4'],
+  },
+  PAQUES: {
+    dark: ['#F5C84C', '#3F2E00', '#5C4300', '#FFE08A', '#B2D38C', '#1F3703', '#354E18', '#E3B5F2', '#17150D', '#242118', '#2E2B22'],
+    light: ['#7A5900', '#FFFFFF', '#FFE08A', '#261A00', '#4C6A2E', '#FFFFFF', '#CDEFA6', '#8B5A9E', '#FFFBEF', '#F6F1DE', '#F0EBD6'],
+  },
+  HALLOWEEN: {
+    dark: ['#FF9F5A', '#4A1A00', '#8A3A00', '#FFDBC8', '#CDB4F5', '#35205C', '#4A2F73', '#A6D58F', '#15101C', '#221B2A', '#2D2535'],
+    light: ['#B04A00', '#FFFFFF', '#FFDBC8', '#351000', '#5E3A87', '#FFFFFF', '#EBDCFF', '#3D6A2B', '#FFF8F3', '#F7EBE3', '#F1E4DC'],
+  },
   // Christmas: deep pine green surfaces, bright red, gold accents.
   NOEL: {
     dark: ['#FF8A80', '#5C0008', '#A81C24', '#FFE3E0', '#F2C14E', '#3D2E00', '#2E5A3C', '#9FD8AC', '#0B2016', '#14301F', '#1C3B28'],

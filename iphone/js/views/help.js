@@ -45,7 +45,7 @@ function help() {
       '• Attention : importer remplace les projets et la laine par ceux de la sauvegarde.',
       '• Les notes sont rattachées au chemin du tuto (dossier/nom) : réimporte les tutos dans les mêmes dossiers, avec les mêmes noms, pour les retrouver.'),
     block('Couleurs',
-      'Réglages › Palette : Laine pastel, Terracotta, Sauge, Lavande, Coton. Du 1er décembre au 6 janvier, un thème de Noël est proposé sur l\'Accueil ; l\'appli reprend ensuite toute seule tes couleurs habituelles.'),
+      'Réglages › Palette : Laine pastel, Terracotta, Sauge, Lavande, Coton. Thèmes de saison proposés sur l\'Accueil : Saint-Valentin (7 – 15 février), Pâques (la semaine avant Pâques), Halloween (20 octobre – 2 novembre) et Noël (1er décembre – 6 janvier) ; l\'appli reprend ensuite toute seule tes couleurs habituelles.'),
     block('Mises à jour',
       'Quand une nouvelle version est publiée, l\'appli la télécharge toute seule (avec Internet) et affiche « Nouvelle version, toucher pour recharger ». Tes données sont gardées.'),
     block('Confidentialité',

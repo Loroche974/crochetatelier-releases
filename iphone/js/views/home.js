@@ -4,9 +4,9 @@ import * as db from '../db.js';
 import { link, settings, saveSettings, setPalette, refresh } from '../app.js';
 import { h, icon, iconButton, section, toast, shareFile } from '../ui.js';
 import { fileTile, showNewCovers } from './library.js';
-import { seasonOffer, occurrence } from '../logic/season.js';
+import { seasonOffer, occurrence, seasonOf } from '../logic/season.js';
 import { title } from '../logic/files.js';
-import { snowfall, garland } from '../snow.js';
+import { seasonFall, garland } from '../snow.js';
 
 const DAY = 86400000;
 const BACKUP_EVERY = 14 * DAY;
@@ -26,7 +26,9 @@ export default async function home(root) {
   const hasData = projects.length > 0 || files.length > 0;
   const backupDue = hasData && Date.now() - lastBackup > BACKUP_EVERY && Date.now() > snoozed;
 
-  const stopSnow = s.palette === 'NOEL' ? snowfall(document.body) : null;
+  // Season whose theme is in use: decorations on Home.
+  const decor = seasonOf(s.palette);
+  const stopSnow = decor ? seasonFall(document.body, decor.id) : null;
 
   const answer = async (accept) => {
     await saveSettings({ ...settings(), seasonAnswered: occurrence(offer, today) });
@@ -43,11 +45,11 @@ export default async function home(root) {
 
   const resume = opened[0];
   root.append(
-    h('div', { class: 'home-head' }, s.palette === 'NOEL' ? garland() : null, h('h1', null, 'Mon Carnet Crochet')),
+    h('div', { class: 'home-head' }, decor?.id === 'NOEL' ? garland() : null, h('h1', null, `Mon Carnet Crochet${decor ? ` ${decor.emoji}` : ''}`)),
 
     offer && h('div', { class: 'card accent' },
       h('h2', null, offer.title),
-      h('p', null, 'Rouge, vert sapin, guirlande et flocons jusqu\'au 6 janvier. Ensuite, tes couleurs habituelles reviennent toutes seules.'),
+      h('p', null, 'Pour un temps limité : l’appli reprend tes couleurs habituelles à la fin de la période.'),
       h('div', { class: 'row' },
         h('button', { class: 'btn filled', onclick: () => answer(true) }, 'Essayer'),
         h('button', { class: 'btn text', onclick: () => answer(false) }, 'Non merci'))),

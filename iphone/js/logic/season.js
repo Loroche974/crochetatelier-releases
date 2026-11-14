@@ -1,29 +1,44 @@
-// Port of domain/model/AppSettings.kt (Season, Palette) and SettingsRepository.setPalette / endExpiredSeason.
+// Port of domain/model/AppSettings.kt (Season, Palette, easterSunday) and SettingsRepository.setPalette / endExpiredSeason.
 
 export const PALETTES = {
-  LAINE_PASTEL: 'Laine pastel', TERRACOTTA: 'Terracotta', SAUGE: 'Sauge', LAVANDE: 'Lavande', COTON: 'Coton', NOEL: 'Noël',
+  LAINE_PASTEL: 'Laine pastel', TERRACOTTA: 'Terracotta', SAUGE: 'Sauge', LAVANDE: 'Lavande', COTON: 'Coton',
+  SAINT_VALENTIN: 'Saint-Valentin', PAQUES: 'Pâques', HALLOWEEN: 'Halloween', NOEL: 'Noël',
 };
 export const DEFAULT_PALETTE = 'LAINE_PASTEL';
 
-/** Months are 1-12. A period may span New Year. */
+// Dates are compared as yyyymmdd numbers: no time zone or hour can shift a day.
+const key = (y, m, d) => y * 10000 + m * 100 + d;
+const dayKey = (date) => key(date.getFullYear(), date.getMonth() + 1, date.getDate());
+const shift = (y, m, d, days) => { const t = new Date(Date.UTC(y, m - 1, d + days)); return key(t.getUTCFullYear(), t.getUTCMonth() + 1, t.getUTCDate()); };
+
+/** Gregorian Easter Sunday (Meeus / Jones / Butcher algorithm): { y, m, d }. */
+export function easterSunday(year) {
+  const a = year % 19, b = Math.floor(year / 100), c = year % 100;
+  const h = (19 * a + b - Math.floor(b / 4) - Math.floor((b - Math.floor((b + 8) / 25) + 1) / 3) + 15) % 30;
+  const l = (32 + 2 * (b % 4) + 2 * Math.floor(c / 4) - h - (c % 4)) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const n = h + l - 7 * m + 114;
+  return { y: year, m: Math.floor(n / 31), d: (n % 31) + 1 };
+}
+
+/** period(year) = [first, last] day (yyyymmdd, inclusive) of the occurrence starting that year; it may end the next year. */
 export const SEASONS = [
-  { id: 'NOEL', palette: 'NOEL', title: 'Le thème de Noël est là !', from: [12, 1], to: [1, 6] },
+  { id: 'SAINT_VALENTIN', palette: 'SAINT_VALENTIN', title: 'Le thème de la Saint-Valentin est là !', emoji: '💕', period: (y) => [key(y, 2, 7), key(y, 2, 15)] },
+  { id: 'PAQUES', palette: 'PAQUES', title: 'Le thème de Pâques est là !', emoji: '🐣', period: (y) => { const e = easterSunday(y); return [shift(y, e.m, e.d, -7), shift(y, e.m, e.d, 1)]; } },
+  { id: 'HALLOWEEN', palette: 'HALLOWEEN', title: 'Le thème d\'Halloween est là !', emoji: '🎃', period: (y) => [key(y, 10, 20), key(y, 11, 2)] },
+  { id: 'NOEL', palette: 'NOEL', title: 'Le thème de Noël est là !', emoji: '🎄', period: (y) => [key(y, 12, 1), key(y + 1, 1, 6)] },
 ];
 
-const md = (date) => (date.getMonth() + 1) * 100 + date.getDate();
-const key = ([m, d]) => m * 100 + d;
-
-export function isActive(season, date) {
-  const d = md(date), from = key(season.from), to = key(season.to);
-  return from <= to ? d >= from && d <= to : d >= from || d <= to;
+/** Year the occurrence covering [date] started in (Noël 2026 runs into January 2027), null when off season. */
+function startYear(season, date) {
+  const k = dayKey(date), y = date.getFullYear();
+  return [y, y - 1].find((yy) => { const [a, b] = season.period(yy); return k >= a && k <= b; }) ?? null;
 }
 
-/** Identifies one occurrence (Noël 2026 runs into January 2027), so a dismissed offer comes back the next year. */
-export function occurrence(season, date) {
-  const spansNewYear = key(season.from) > key(season.to);
-  const year = spansNewYear && md(date) <= key(season.to) ? date.getFullYear() - 1 : date.getFullYear();
-  return `${season.id}-${year}`;
-}
+export const isActive = (season, date) => startYear(season, date) != null;
+
+/** Identifies one occurrence, so a dismissed offer comes back the next year. */
+export const occurrence = (season, date) => `${season.id}-${startYear(season, date) ?? date.getFullYear()}`;
 
 export const currentSeason = (date) => SEASONS.find((s) => isActive(s, date)) ?? null;
 export const seasonOf = (palette) => SEASONS.find((s) => s.palette === palette) ?? null;

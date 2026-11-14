@@ -3,7 +3,7 @@ import * as repo from '../repo.js';
 import * as db from '../db.js';
 import { link, settings, saveSettings, setPalette, refresh, checkForUpdate, APP_VERSION } from '../app.js';
 import { h, icon, section, segmented, toast, confirmDialog, pickFiles, shareFile, dateFr } from '../ui.js';
-import { PALETTES, paletteAvailable } from '../logic/season.js';
+import { PALETTES, paletteAvailable, seasonOf } from '../logic/season.js';
 import { describeSummary } from '../logic/backup.js';
 
 // Same links as the constants at the top of SettingsScreen.kt (Android).
@@ -57,7 +57,7 @@ export default async function settingsScreen(root) {
     section('Mode', segmented('Mode', [['SYSTEM', 'Auto'], ['LIGHT', 'Clair'], ['DARK', 'Sombre']], s.themeMode, async (m) => { await saveSettings({ ...settings(), themeMode: m }); refresh(); })),
     section('Palette', h('div', { class: 'chips' }, Object.entries(PALETTES).filter(([id]) => paletteAvailable(id, today)).map(([id, label]) =>
       h('button', { class: `chip${s.palette === id ? ' on' : ''}`, 'aria-pressed': String(s.palette === id), onclick: async () => { await setPalette(id); refresh(); } }, label))),
-    s.palette === 'NOEL' ? h('p', { class: 'muted small' }, 'Le thème de Noël s\'arrête le 7 janvier : tes couleurs d\'avant reviennent toutes seules.') : null),
+    seasonOf(s.palette) ? h('p', { class: 'muted small' }, `Thème ${PALETTES[s.palette] === 'Halloween' ? 'd\'Halloween' : `de ${PALETTES[s.palette]}`} : tes couleurs d'avant reviennent toutes seules à la fin de la période.`) : null),
 
     section('Sauvegarde',
       h('p', { class: 'small' }, 'Un fichier .zip avec tes projets (compteurs, temps, photos), ta laine, tes notes, marque-pages, étiquettes, favoris et pages lues. Pas les tutos eux-mêmes. Il se lit aussi dans l\'appli Android.'),

@@ -1,6 +1,6 @@
 // Offline: the whole app is cached at install. Change VERSION on every publication,
 // otherwise phones keep the old files.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = `carnet-crochet-${VERSION}`;
 const FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',

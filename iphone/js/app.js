@@ -4,7 +4,7 @@ import { applyTheme, onSystemThemeChange } from './theme.js';
 import { endExpiredSeason, choosePalette, DEFAULT_PALETTE } from './logic/season.js';
 import { h, icon, releaseUrls, toast } from './ui.js';
 
-export const APP_VERSION = '1.0';
+export const APP_VERSION = '1.1';
 
 // ---------- Settings ----------
 let current = { themeMode: 'SYSTEM', palette: DEFAULT_PALETTE };
